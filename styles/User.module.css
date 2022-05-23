@@ -1,12 +1,10 @@
-.snack {
-  background-color: #d32f2f !important;
-}
-
 .repositoryWrapper {
   gap: 1rem;
 }
-
 .repositoryWrapper::after {
   content: '';
   flex: 0 0 42%;
+}
+.snack {
+  background-color: #d32f2f !important;
 }
