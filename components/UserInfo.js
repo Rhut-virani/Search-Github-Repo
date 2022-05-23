@@ -1,12 +1,18 @@
 import { Grid, Typography } from '@mui/material';
 import Image from 'next/image';
-import Link from 'next/link';
 import styles from '../styles/UserInfo.module.css';
 import GroupOutlinedIcon from '@mui/icons-material/GroupOutlined';
 
 function UserInfo({ user }) {
   return (
-    <Grid container item xs={12} md={3} alignContent="flex-start">
+    <Grid
+      container
+      item
+      xs={12}
+      md={3}
+      alignContent="flex-start"
+      className={styles.userInfo}
+    >
       <Grid item xs={12} justifyContent="center" p={3}>
         <Image
           width={200}
@@ -31,7 +37,13 @@ function UserInfo({ user }) {
           {user.bio}
         </Typography>
       </Grid>
-      <Grid container item xs={12} alignItems="center">
+      <Grid
+        container
+        item
+        xs={12}
+        alignItems="center"
+        className={styles.followers}
+      >
         <GroupOutlinedIcon />
         <Typography variant="subtible2">
           {user.followers.totalCount}{' '}
