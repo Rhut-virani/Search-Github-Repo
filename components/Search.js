@@ -3,9 +3,10 @@ import { useState } from 'react';
 import styles from '../styles/Search.module.css';
 import { useRouter } from 'next/router';
 
-function Search({ searchUsers }) {
+function Search() {
   const router = useRouter();
   const [search, setSearch] = useState('');
+
   const handleSubmit = (e) => {
     e.preventDefault();
     router.push(`/user/${search}`);
