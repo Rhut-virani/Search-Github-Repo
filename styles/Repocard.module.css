@@ -1,0 +1,33 @@
+.card {
+  min-height: 10rem;
+  padding: 1rem;
+  margin: 0.5rem;
+  border-radius: 1rem;
+  color: #57606a;
+  border: 0.5px solid #d0d7de;
+}
+
+.link {
+  cursor: pointer;
+}
+
+.chip {
+  margin-left: 1rem;
+  color: #57606a;
+  border: 0.5px solid #d0d7de;
+}
+.language,
+.fork,
+.star {
+  color: #57606a;
+  font-size: 0.25rem;
+}
+
+.circle {
+  height: 1rem;
+  width: 1rem;
+  border-radius: 50%;
+  background-color: #f1e05a;
+  display: inline;
+  margin-bottom: 0.25rem;
+}
