@@ -1,6 +1,8 @@
 import Head from 'next/head';
+// import { useRouter } from 'next/router';
 import client from '../../lib/apollo-client';
 import { searchRepoQuery } from '../../lib/query';
+import { useEffect, useState } from 'react';
 import Nav from '../../components/Nav';
 import Search from '../../components/Search';
 import Repogrid from '../../components/Repogrid';
@@ -51,7 +53,9 @@ const Respositories = ({ data, error }) => {
           open={!!error}
           message={error}
           ContentProps={{
-            className: styles.snack,
+            classes: {
+              root: styles.snack,
+            },
           }}
           anchorOrigin={{
             vertical: 'bottom',
