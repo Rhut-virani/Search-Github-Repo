@@ -48,7 +48,15 @@ const Respositories = ({ data }) => {
         <Grid container item xs={12} justifyContent="center" mt={3}>
           <UserInfo user={userData} />
           {repositories ? (
-            <Grid container item xs={12} md={8} justifyContent="center" mt={3}>
+            <Grid
+              container
+              item
+              xs={12}
+              md={8}
+              mt={3}
+              justifyContent="flex-start"
+              className={styles.repositoryWrapper}
+            >
               <Repogrid repositories={repositories} />
             </Grid>
           ) : (

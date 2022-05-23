@@ -1,5 +1,4 @@
-import { Box, Chip, Grid, Typography } from '@mui/material';
-import Link from 'next/link';
+import { Box, Chip, Grid, Link, Typography } from '@mui/material';
 import styles from '../styles/Repocard.module.css';
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
 import RestaurantOutlinedIcon from '@mui/icons-material/RestaurantOutlined';
@@ -15,29 +14,36 @@ function Repocard({
   primaryLanguage,
 }) {
   return (
-    <Grid container item className={styles.card} xs={12} lg={5}>
-      <Grid container justifyContent="flex-start" alignItems="center">
+    <Grid
+      container
+      item
+      className={styles.card}
+      xs={12}
+      lg={5}
+      alignContent="space-between"
+    >
+      <Grid container item justifyContent="flex-start" alignItems="center">
         <BookmarkBorderOutlinedIcon fontSize="small" />
-        <a target="_blank" href={url} rel="noreferrer">
-          <Typography
-            variant="subtitle1"
-            color="primary"
-            ml={1}
-            className={styles.link}
-          >
+        <Link
+          target="_blank"
+          href={url}
+          rel="noreferrer"
+          className={styles.link}
+        >
+          <Typography variant="subtitle1" color="primary" ml={1}>
             {name}
           </Typography>
-        </a>
+        </Link>
         <Chip
           label={isPrivate ? 'Private' : 'Public'}
           variant="outlined"
           className={styles.chip}
         />
       </Grid>
-      <Typography variant="body1" className={styles.details} my={2}>
+      <Typography variant="body2" noWrap className={styles.details} my={2}>
         {description}
       </Typography>
-      <Grid container justifyContent="flex-star">
+      <Grid container item justifyContent="flex-start">
         <Grid
           container
           item
@@ -45,7 +51,7 @@ function Repocard({
           className={styles.language}
           alignItems="center"
         >
-          <Box className={styles.circle}></Box>
+          <Box className={`${primaryLanguage && styles.circle}`}></Box>
           <Typography variant="subtitle2" ml={1}>
             {primaryLanguage}
           </Typography>

@@ -1,4 +1,3 @@
-import { Grid } from '@mui/material';
 import Repocard from './Repocard';
 
 function Repogrid({ repositories }) {
