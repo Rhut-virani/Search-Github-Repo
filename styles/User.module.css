@@ -5,3 +5,8 @@
 .repositoryWrapper {
   gap: 1rem;
 }
+
+.repositoryWrapper::after {
+  content: '';
+  flex: 0 0 42%;
+}

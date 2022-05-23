@@ -45,7 +45,7 @@ const Respositories = ({ data }) => {
         p={3}
       >
         <Search searchUsers={searchUsers} />
-        <Grid container item xs={12} justifyContent="center" mt={3}>
+        <Grid container item xs={12} justifyContent="space-around" mt={3}>
           <UserInfo user={userData} />
           {repositories ? (
             <Grid
@@ -54,7 +54,7 @@ const Respositories = ({ data }) => {
               xs={12}
               md={8}
               mt={3}
-              justifyContent="flex-start"
+              justifyContent="center"
               className={styles.repositoryWrapper}
             >
               <Repogrid repositories={repositories} />
