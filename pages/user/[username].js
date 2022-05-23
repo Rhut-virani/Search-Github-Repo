@@ -1,8 +1,8 @@
 import Head from 'next/head';
-import Router from 'next/router';
+// import { useRouter } from 'next/router';
 import client from '../../lib/apollo-client';
 import { searchRepoQuery } from '../../lib/query';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Nav from '../../components/Nav';
 import Search from '../../components/Search';
 import Repogrid from '../../components/Repogrid';
@@ -10,29 +10,11 @@ import UserInfo from '../../components/UserInfo';
 import { Grid, Snackbar, Typography } from '@mui/material';
 import styles from '../../styles/User.module.css';
 
-const Respositories = ({ data }) => {
-  const [userData, setUserData] = useState(data);
-  const [error, setError] = useState(null);
-  const repositories = userData.repositories?.nodes;
-
-  const searchUsers = async (search) => {
-    const result = await fetch('/api/searchuser', {
-      method: 'post',
-      body: search,
-    });
-    const { data, error } = await result.json();
-    if (!error) {
-      setUserData(data.edges[0]?.node);
-      Router.push(`/user/${search}`);
-    } else {
-      setError(error);
-    }
-  };
-
+const Respositories = ({ data, error }) => {
   return (
     <>
       <Head>
-        <title>{userData.name}</title>
+        <title>{data?.name || 'Search Users'}</title>
       </Head>
       <Nav />
       <Grid
@@ -44,43 +26,43 @@ const Respositories = ({ data }) => {
         alignItems="center"
         p={3}
       >
-        <Search searchUsers={searchUsers} />
-        <Grid container item xs={12} justifyContent="space-around" mt={3}>
-          <UserInfo user={userData} />
-          {repositories ? (
-            <Grid
-              container
-              item
-              xs={12}
-              md={8}
-              mt={3}
-              justifyContent="center"
-              className={styles.repositoryWrapper}
-            >
-              <Repogrid repositories={repositories} />
-            </Grid>
-          ) : (
-            <Typography>No Repo Found</Typography>
-          )}
-          <Snackbar
-            open={!!error}
-            autoHideDuration={2000}
-            onClose={() => {
-              setError(null);
-            }}
-            message={error}
-            ContentProps={{
-              classes: {
-                root: styles.snack,
-              },
-            }}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'center',
-            }}
-          />
-        </Grid>
+        <Search />
+        {data && (
+          <Grid container item xs={12} justifyContent="space-around" mt={3}>
+            <UserInfo user={data} />
+            {data?.repositories?.nodes ? (
+              <Grid
+                container
+                item
+                xs={12}
+                md={8}
+                mt={3}
+                justifyContent="center"
+                className={styles.repositoryWrapper}
+              >
+                <Repogrid repositories={data.repositories.nodes} />
+              </Grid>
+            ) : (
+              <Typography>No Repo Found</Typography>
+            )}
+          </Grid>
+        )}
       </Grid>
+      {error && (
+        <Snackbar
+          open={!!error}
+          message={error}
+          ContentProps={{
+            classes: {
+              root: styles.snack,
+            },
+          }}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'center',
+          }}
+        />
+      )}
     </>
   );
 };
@@ -89,12 +71,21 @@ export async function getServerSideProps({ params }) {
   const results = await client.query({
     query: searchRepoQuery(params.username),
   });
-
-  return {
-    props: {
-      data: results.data.search.edges[0]?.node,
-    },
-  };
+  if (!!results.data.search.edges[0]) {
+    return {
+      props: {
+        data: results.data.search.edges[0]?.node,
+        error: null,
+      },
+    };
+  } else {
+    return {
+      props: {
+        data: null,
+        error: 'No Users Found',
+      },
+    };
+  }
 }
 
 export default Respositories;

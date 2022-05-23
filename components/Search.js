@@ -1,12 +1,15 @@
 import { Grid, TextField } from '@mui/material';
 import { useState } from 'react';
 import styles from '../styles/Search.module.css';
+import { useRouter } from 'next/router';
 
 function Search({ searchUsers }) {
+  const router = useRouter();
   const [search, setSearch] = useState('');
   const handleSubmit = (e) => {
     e.preventDefault();
-    searchUsers(search);
+    router.push(`/user/${search}`);
+    setSearch('');
   };
   return (
     <Grid container item xs={12} justifyContent="center" alignItems="center">
