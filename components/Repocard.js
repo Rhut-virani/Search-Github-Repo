@@ -29,6 +29,7 @@ function Repocard({
           href={url}
           rel="noreferrer"
           className={styles.link}
+          underline="none"
         >
           <Typography variant="subtitle1" color="primary" ml={1}>
             {name}
