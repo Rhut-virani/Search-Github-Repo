@@ -9,8 +9,10 @@ function Search() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    router.push(`/user/${search}`);
-    setSearch('');
+    if (search.trim()) {
+      router.push(`/user/${search}`);
+      setSearch('');
+    }
   };
   return (
     <Grid container item xs={12} justifyContent="center" alignItems="center">
@@ -22,8 +24,9 @@ function Search() {
         <TextField
           fullWidth
           id="outlined-search"
-          label="Enter Gthub Username"
+          label="Enter Github Username"
           type="search"
+          required
           value={search}
           onChange={(e) => {
             setSearch(e.target.value);

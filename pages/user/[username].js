@@ -70,7 +70,7 @@ export async function getServerSideProps({ params }) {
   if (!!results.data.search.edges[0]) {
     return {
       props: {
-        data: results.data.search.edges[0]?.node,
+        data: results.data.search.edges[0].node,
         error: null,
       },
     };
